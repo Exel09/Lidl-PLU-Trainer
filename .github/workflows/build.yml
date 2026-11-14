@@ -35,12 +35,15 @@ jobs:
           yes | "$SDKMANAGER" --licenses || true
           "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
 
+
       - name: Extract project
         run: |
           ZIP_FILE=$(find . -maxdepth 1 -name '*.zip' | head -n 1)
           test -n "$ZIP_FILE"
-          unzip "$ZIP_FILE" -d extracted
-          test -d extracted/LidlPLUWidged
+          mkdir -p extracted
+          unzip -o "$ZIP_FILE" -d extracted || true
+          test -f extracted/LidlPLUWidget/app/build.gradle.kts
+
           
 
 
